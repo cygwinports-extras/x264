@@ -4,9 +4,9 @@ x264 is a free library for encoding H264/AVC video streams.
 
 Runtime requirements:
   cygwin-1.5.24-2
-  gdk-pixbuf2-2.10.9-1
-  glib2-2.12.9-1
-  gtk2-x11-2.10.9-1
+  gdk-pixbuf2-2.10.14-1
+  glib2-2.12.13-1
+  gtk2-x11-2.10.13-1
   libX11_6-1.1.1-1
   libintl8-0.15-1
 
@@ -14,7 +14,7 @@ Build requirements:
 (besides corresponding -devel packages)
   cygwin-1.5.24-2
   binutils-20060817-1
-  cygport-0.2.9-1
+  cygport-0.3.5-1
   gcc-core-3.4.4-3
   make-3.81-1
 
@@ -27,17 +27,19 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack x264-20070213-X-src.tar.bz2
+  unpack x264-667-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./x264-20070213-X.cygport all
+  cygport ./x264-667-X.cygport all
 
 This will create:
-  /usr/src/x264-20070213-X-src.tar.bz2
-  /usr/src/x264-20070213-X.tar.bz2
-  /usr/src/libx264_54-20070213-X.tar.bz2
-  /usr/src/libx264-devel-20070213-X.tar.bz2
+  /usr/src/x264-667-X-src.tar.bz2
+  /usr/src/x264-667-X.tar.bz2
+  /usr/src/libx264_56-667-X.tar.bz2
+  /usr/src/libx264-devel-667-X.tar.bz2
+  /usr/src/libx264gtk-devel-667-X.tar.bz2
+  /usr/src/libx264gtk56-667-X.tar.bz2
 
 -------------------------------------------
 
@@ -46,34 +48,41 @@ Files included in the binary packages:
 (x264)
   /usr/bin/x264.exe
   /usr/bin/x264_gtk_encode.exe
-  /usr/share/doc/Cygwin/x264-20070213.README
-  /usr/share/doc/x264-20070213/AUTHORS
-  /usr/share/doc/x264-20070213/COPYING
-  /usr/share/doc/x264-20070213/ratecontrol.txt
-  /usr/share/doc/x264-20070213/regression_test.txt
-  /usr/share/doc/x264-20070213/threads.txt
-  /usr/share/doc/x264-20070213/vui.txt
+  /usr/share/doc/Cygwin/x264-667.README
+  /usr/share/doc/x264-667/AUTHORS
+  /usr/share/doc/x264-667/COPYING
+  /usr/share/doc/x264-667/ratecontrol.txt
+  /usr/share/doc/x264-667/regression_test.txt
+  /usr/share/doc/x264-667/threads.txt
+  /usr/share/doc/x264-667/vui.txt
   /usr/share/locale/fr/LC_MESSAGES/x264_gtk.mo
   /usr/share/x264/x264.png
 
 (libx264_54)
-  /usr/bin/cygx264-54.dll
-  /usr/bin/cygx264gtk-54.dll
+  /usr/bin/cygx264-56.dll
+
+(libx264gtk56)
+  /usr/bin/cygx264gtk-56.dll
 
 (libx264-devel)
   /usr/include/x264.h
-  /usr/include/x264_gtk.h
-  /usr/include/x264_gtk_enum.h
   /usr/lib/libx264.a
   /usr/lib/libx264.dll.a
+  /usr/lib/pkgconfig/x264.pc
+
+(libx264gtk-devel)
+  /usr/include/x264_gtk.h
+  /usr/include/x264_gtk_enum.h
   /usr/lib/libx264gtk.a
   /usr/lib/libx264gtk.dll.a
-  /usr/lib/pkgconfig/x264.pc
   /usr/lib/pkgconfig/x264gtk.pc
 
 ------------------
 
 Port Notes:
+
+----- version 667-1 -----
+Updated SVN snapshot.  Separated GTK+ libs.
 
 ----- version 20070213-1 -----
 Initial release for Cygwin.

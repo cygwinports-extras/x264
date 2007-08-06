@@ -1,0 +1,5 @@
+category: Video
+requires: cygwin glib2 gdk-pixbuf2 gtk2-x11 libintl8
+external-source: x264
+sdesc: "H264/AVC video stream encoding library (GTK+ runtime)"
+ldesc: "x264 is a free library for encoding H264/AVC video streams."
