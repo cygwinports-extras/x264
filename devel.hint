@@ -1,5 +1,5 @@
 category: Video
-requires: cygwin libx264_56 libX11-devel
+requires: cygwin libx264_59 libX11-devel
 external-source: x264
 sdesc: "H264/AVC video stream encoding library (development)"
 ldesc: "x264 is a free library for encoding H264/AVC video streams."

@@ -1,0 +1,104 @@
+diff -urN -x CYGWIN-PATCHES -x 'aclocal.m4~' -x aclocal.m4t -x autom4te.cache -x config.cache -x config.log -x config.status -x config.h -x '*config.h.in' -x ABOUT-NLS -x Makefile.in.in -x Makevars.template -x '*SlackBuild*' -x '*.egg-info' -x '*.class' -x '*.pyc' -x '*.mo' -x '*.gmo' -x '*.orig' -x '*.rej' -x '*.spec' -x '*.temp' -x '*~' -x '*.stackdump' -x COPYING -x INSTALL -x compile -x config-ml.in -x config.guess -x config.sub -x depcomp -x elisp-comp -x install-sh -x libtool.m4 -x ltoptions.m4 -x ltsugar.m4 -x ltversion.m4 -x 'lt~obsolete.m4' -x ltmain.sh -x mdate-sh -x missing -x mkinstalldirs -x py-compile -x symlink-tree -x texinfo.tex -x ylwrap -x config.rpath -x omf.make -x xmldocs.make -x gnome-doc-utils.make -x gnome-doc-utils.m4 -x intltool.m4 -x intltool-extract -x intltool-extract.in -x intltool-merge -x intltool-merge.in -x intltool-update -x intltool-update.in -x '*.po' origsrc/x264-snapshot-20080521-2245/Makefile src/x264-snapshot-20080521-2245/Makefile
+--- origsrc/x264-snapshot-20080521-2245/Makefile	2008-05-21 15:45:10.000000000 -0500
++++ src/x264-snapshot-20080521-2245/Makefile	2008-05-22 22:07:58.546875000 -0500
+@@ -156,7 +156,7 @@
+ 	install -m 644 x264.pc $(DESTDIR)$(libdir)/pkgconfig
+ 	install x264$(EXE) $(DESTDIR)$(bindir)
+ 	ranlib $(DESTDIR)$(libdir)/libx264.a
+-ifeq ($(SYS),MINGW)
++ifneq ($(filter CYGWIN MINGW, $(SYS)), '')
+ 	$(if $(SONAME), install -m 755 $(SONAME) $(DESTDIR)$(bindir))
+ else
+ 	$(if $(SONAME), ln -sf $(SONAME) $(DESTDIR)$(libdir)/libx264.so)
+diff -urN -x CYGWIN-PATCHES -x 'aclocal.m4~' -x aclocal.m4t -x autom4te.cache -x config.cache -x config.log -x config.status -x config.h -x '*config.h.in' -x ABOUT-NLS -x Makefile.in.in -x Makevars.template -x '*SlackBuild*' -x '*.egg-info' -x '*.class' -x '*.pyc' -x '*.mo' -x '*.gmo' -x '*.orig' -x '*.rej' -x '*.spec' -x '*.temp' -x '*~' -x '*.stackdump' -x COPYING -x INSTALL -x compile -x config-ml.in -x config.guess -x config.sub -x depcomp -x elisp-comp -x install-sh -x libtool.m4 -x ltoptions.m4 -x ltsugar.m4 -x ltversion.m4 -x 'lt~obsolete.m4' -x ltmain.sh -x mdate-sh -x missing -x mkinstalldirs -x py-compile -x symlink-tree -x texinfo.tex -x ylwrap -x config.rpath -x omf.make -x xmldocs.make -x gnome-doc-utils.make -x gnome-doc-utils.m4 -x intltool.m4 -x intltool-extract -x intltool-extract.in -x intltool-merge -x intltool-merge.in -x intltool-update -x intltool-update.in -x '*.po' origsrc/x264-snapshot-20080521-2245/configure src/x264-snapshot-20080521-2245/configure
+--- origsrc/x264-snapshot-20080521-2245/configure	2008-05-21 15:45:10.000000000 -0500
++++ src/x264-snapshot-20080521-2245/configure	2008-05-22 22:35:02.343750000 -0500
+@@ -209,11 +209,8 @@
+     LDFLAGS="$LDFLAGS -lm"
+     ;;
+   cygwin*)
+-    SYS="MINGW"
+-    CFLAGS="$CFLAGS -mno-cygwin"
+-    LDFLAGS="$LDFLAGS -mno-cygwin"
++    SYS="CYGWIN"
+     EXE=".exe"
+-    DEVNULL="NUL"
+     ;;
+   mingw*)
+     SYS="MINGW"
+@@ -239,7 +236,7 @@
+     ASFLAGS="-O2"
+     if [ "$SYS" = MACOSX ]; then
+       ASFLAGS="$ASFLAGS -f macho -DPREFIX"
+-    elif [ "$SYS" = MINGW ]; then
++    elif [ "$SYS" = MINGW ] || [ "$SYS" = CYGWIN ]; then
+       ASFLAGS="$ASFLAGS -f win32 -DPREFIX"
+     else
+       ASFLAGS="$ASFLAGS -f elf"
+@@ -444,6 +441,10 @@
+         echo "SONAME=libx264-$API.dll" >> config.mak
+         echo 'IMPLIBNAME=libx264.dll.a' >> config.mak
+         echo 'SOFLAGS=-Wl,--out-implib,$(IMPLIBNAME) -Wl,--enable-auto-image-base' >> config.mak
++    elif [ "$SYS" = "CYGWIN" ]; then
++        echo "SONAME=cygx264-$API.dll" >> config.mak
++        echo 'IMPLIBNAME=libx264.dll.a' >> config.mak
++        echo 'SOFLAGS=-Wl,--out-implib,$(IMPLIBNAME) -Wl,--enable-auto-image-base' >> config.mak
+     elif [ "$SYS" = "MACOSX" ]; then
+         echo "SONAME=libx264.$API.dylib" >> config.mak
+         echo 'SOFLAGS=-dynamiclib -Wl,-single_module -Wl,-read_only_relocs,suppress' >> config.mak        
+@@ -453,7 +454,13 @@
+     fi
+     echo 'default: $(SONAME)' >> config.mak
+     if [ "$gtk" = "yes" ]; then
+-        echo "SONAMEGTK=libx264gtk.so.$API" >> gtk/config.mak
++        if [ "$SYS" = "CYGWIN" ]; then
++            echo "SONAMEGTK=cygx264gtk-$API.dll" >> gtk/config.mak
++            echo 'IMPLIBNAME=libx264gtk.dll.a' >> gtk/config.mak
++            echo 'SOFLAGS=-Wl,--out-implib,$(IMPLIBNAME) -Wl,--enable-auto-image-base' >> gtk/config.mak
++        else
++            echo "SONAMEGTK=libx264gtk.so.$API" >> gtk/config.mak
++        fi
+     fi
+ fi
+ 
+diff -urN -x CYGWIN-PATCHES -x 'aclocal.m4~' -x aclocal.m4t -x autom4te.cache -x config.cache -x config.log -x config.status -x config.h -x '*config.h.in' -x ABOUT-NLS -x Makefile.in.in -x Makevars.template -x '*SlackBuild*' -x '*.egg-info' -x '*.class' -x '*.pyc' -x '*.mo' -x '*.gmo' -x '*.orig' -x '*.rej' -x '*.spec' -x '*.temp' -x '*~' -x '*.stackdump' -x COPYING -x INSTALL -x compile -x config-ml.in -x config.guess -x config.sub -x depcomp -x elisp-comp -x install-sh -x libtool.m4 -x ltoptions.m4 -x ltsugar.m4 -x ltversion.m4 -x 'lt~obsolete.m4' -x ltmain.sh -x mdate-sh -x missing -x mkinstalldirs -x py-compile -x symlink-tree -x texinfo.tex -x ylwrap -x config.rpath -x omf.make -x xmldocs.make -x gnome-doc-utils.make -x gnome-doc-utils.m4 -x intltool.m4 -x intltool-extract -x intltool-extract.in -x intltool-merge -x intltool-merge.in -x intltool-update -x intltool-update.in -x '*.po' origsrc/x264-snapshot-20080521-2245/gtk/Makefile src/x264-snapshot-20080521-2245/gtk/Makefile
+--- origsrc/x264-snapshot-20080521-2245/gtk/Makefile	2008-05-21 15:45:10.000000000 -0500
++++ src/x264-snapshot-20080521-2245/gtk/Makefile	2008-05-22 22:39:43.046875000 -0500
+@@ -53,7 +53,7 @@
+ 
+ # Already provides iconv/intl
+ CPPFLAGS = -g `pkg-config --cflags gtk+-2.0 gthread-2.0` -I.. -DX264_DATA_DIR=\"${datadir}\"
+-LDFLAGS += `pkg-config --libs gtk+-2.0 gthread-2.0` ../libx264.a
++LDFLAGS += `pkg-config --libs gtk+-2.0 gthread-2.0` -L.. -lx264
+ 
+ 
+ # gettext rules
+@@ -93,7 +93,7 @@
+ 
+ $(SONAMEGTK): $(OBJECTS_LIB)
+ 	@echo "  L: $(@F)"
+-	@$(CC) -shared -o $@ $(OBJECTS_LIB) -Wl,-soname,$(SONAMEGTK) $(LDFLAGS)
++	@$(CC) -shared -o $@ $(OBJECTS_LIB) $(SOFLAGS) $(LDFLAGS)
+ 
+ # Program : test
+ $(TEST_BIN): $(OBJECTS_LIB) $(OBJECTS_TEST)
+@@ -142,11 +142,17 @@
+ 	@install -d "$(DESTDIR)$(libdir)"
+ 	@echo "  I: $(DESTDIR)$(libdir)/libx264gtk.a"
+ 	@install -m 644 libx264gtk.a "$(DESTDIR)$(libdir)"
++	@echo "  D: $(DESTDIR)$(bindir)"
++	@install -d "$(DESTDIR)$(bindir)"
++ifneq ($(filter CYGWIN MINGW, $(SYS)), '')
++	@echo "  I: $(DESTDIR)$(bindir)/$(SONAMEGTK)"
++	$(if $(SONAMEGTK), install -m 755 $(SONAMEGTK) $(DESTDIR)$(bindir))
++else
+ 	@echo "  I: $(DESTDIR)$(libdir)/libx264gtk.so"
+ 	@$(if $(SONAMEGTK), ln -sf $(SONAMEGTK) $(DESTDIR)$(libdir)/libx264gtk.so)
+ 	@$(if $(SONAMEGTK), install -m 755 $(SONAMEGTK) $(DESTDIR)$(libdir))
+-	@echo "  D: $(DESTDIR)$(bindir)"
+-	@install -d "$(DESTDIR)$(bindir)"
++endif
++	$(if $(IMPLIBNAME), install -m 644 $(IMPLIBNAME) $(DESTDIR)$(libdir))
+ 	@echo "  I: $(DESTDIR)$(bindir)/$(ENCODE_BIN)"
+ 	@install $(ENCODE_BIN) "$(DESTDIR)$(bindir)"
+ 	@echo "  D: $(DESTDIR)${datadir}/x264"
