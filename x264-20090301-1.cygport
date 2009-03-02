@@ -1,0 +1,24 @@
+DESCRIPTION="H264/AVC video stream encoding library"
+HOMEPAGE="http://www.videolan.org/developers/x264.html"
+SRC_URI="http://download.videolan.org/pub/videolan/${PN}/snapshots/${PN}-snapshot-${PV}-2245.tar.bz2"
+SRC_DIR="${PN}-snapshot-${PV}-2245"
+
+PATCH_URI="20090301-build.patch"
+
+PKG_NAMES="${PN} lib${PN}_66 lib${PN}-devel"
+x264_CONTENTS="usr/bin/*.exe usr/share/doc/"
+libx264_66_CONTENTS="usr/bin/cygx264-66.dll"
+libx264_devel_CONTENTS='usr/include/x264.h usr/lib/libx264.* usr/lib/pkgconfig/x264.pc'
+
+DIFF_EXCLUDES="*.po"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	./configure --prefix=/usr \
+		--bindir=/usr/bin --includedir=/usr/include --libdir=/usr/lib \
+		--enable-pthread --enable-visualize --enable-shared
+	cygmake
+}
+
+DOCS="doc/*.txt"

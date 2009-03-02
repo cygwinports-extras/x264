@@ -1,0 +1,46 @@
+--- origsrc/x264-snapshot-20090301-2245/Makefile	2009-03-01 15:45:20.000000000 -0600
++++ src/x264-snapshot-20090301-2245/Makefile	2009-03-02 10:50:07.468750000 -0600
+@@ -151,7 +151,7 @@ install: x264$(EXE) $(SONAME)
+ 	install -m 644 x264.pc $(DESTDIR)$(libdir)/pkgconfig
+ 	install x264$(EXE) $(DESTDIR)$(bindir)
+ 	$(RANLIB) $(DESTDIR)$(libdir)/libx264.a
+-ifeq ($(SYS),MINGW)
++ifneq ($(filter CYGWIN MINGW, $(SYS)), '')
+ 	$(if $(SONAME), install -m 755 $(SONAME) $(DESTDIR)$(bindir))
+ else
+ 	$(if $(SONAME), ln -sf $(SONAME) $(DESTDIR)$(libdir)/libx264.$(SOSUFFIX))
+--- origsrc/x264-snapshot-20090301-2245/configure	2009-03-01 15:45:20.000000000 -0600
++++ src/x264-snapshot-20090301-2245/configure	2009-03-02 10:53:04.765625000 -0600
+@@ -208,11 +208,8 @@ case $host_os in
+     LDFLAGS="$LDFLAGS -lm"
+     ;;
+   cygwin*)
+-    SYS="MINGW"
+-    CFLAGS="$CFLAGS -mno-cygwin"
+-    LDFLAGS="$LDFLAGS -mno-cygwin"
++    SYS="CYGWIN"
+     EXE=".exe"
+-    DEVNULL="NUL"
+     ;;
+   mingw*)
+     SYS="MINGW"
+@@ -238,7 +235,7 @@ case $host_cpu in
+     ASFLAGS="$ASFLAGS -O2"
+     if [ "$SYS" = MACOSX ]; then
+       ASFLAGS="$ASFLAGS -f macho -DPREFIX"
+-    elif [ "$SYS" = MINGW ]; then
++    elif [ "$SYS" = MINGW ] || [ "$SYS" = CYGWIN ]; then
+       ASFLAGS="$ASFLAGS -f win32 -DPREFIX"
+     else
+       ASFLAGS="$ASFLAGS -f elf"
+@@ -450,6 +447,10 @@ if [ "$shared" = "yes" ]; then
+         echo "SONAME=libx264-$API.dll" >> config.mak
+         echo 'IMPLIBNAME=libx264.dll.a' >> config.mak
+         echo 'SOFLAGS=-Wl,--out-implib,$(IMPLIBNAME) -Wl,--enable-auto-image-base' >> config.mak
++    elif [ "$SYS" = "CYGWIN" ]; then
++        echo "SONAME=cygx264-$API.dll" >> config.mak
++        echo 'IMPLIBNAME=libx264.dll.a' >> config.mak
++        echo 'SOFLAGS=-Wl,--out-implib,$(IMPLIBNAME) -Wl,--enable-auto-image-base' >> config.mak
+     elif [ "$SYS" = "MACOSX" ]; then
+         echo "SOSUFFIX=dylib" >> config.mak
+         echo "SONAME=libx264.$API.dylib" >> config.mak
