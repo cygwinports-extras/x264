@@ -3,15 +3,16 @@ x264
 x264 is a free library for encoding H264/AVC video streams.
 
 Runtime requirements:
-  cygwin-1.5.25-15
-  libX11_6-1.1.5-2
+  cygwin-1.7.0-45
+  libgcc1-4.3.2-2
+  libX11_6-1.2-10
 
 Build requirements:
 (besides corresponding -devel packages)
   binutils-20080624-2
-  cygport-0.4.3-1
-  gcc-core-3.4.4-3
-  make-3.81-1
+  cygport-0.9.6-1
+  gcc4-core-4.3.2-2
+  make-3.81-2
 
 Canonical website:
   http://www.videolan.org/developers/x264.html
@@ -22,17 +23,17 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack x264-20090301-X-src.tar.bz2
+  unpack x264-20090404-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./x264-20090301-X.cygport all
+  cygport ./x264-20090404-X.cygport all
 
 This will create:
-  /usr/src/x264-20090301-X-src.tar.bz2
-  /usr/src/x264-20090301-X.tar.bz2
-  /usr/src/libx264_66-20090301-X.tar.bz2
-  /usr/src/libx264-devel-20090301-X.tar.bz2
+  /usr/src/x264-20090404-X-src.tar.bz2
+  /usr/src/x264-20090404-X.tar.bz2
+  /usr/src/libx264_67-20090404-X.tar.bz2
+  /usr/src/libx264-devel-20090404-X.tar.bz2
 
 -------------------------------------------
 
@@ -40,16 +41,16 @@ Files included in the binary packages:
 
 (x264)
   /usr/bin/x264.exe
-  /usr/share/doc/x264-20090301/AUTHORS
-  /usr/share/doc/x264-20090301/COPYING
-  /usr/share/doc/x264-20090301/ratecontrol.txt
-  /usr/share/doc/x264-20090301/regression_test.txt
-  /usr/share/doc/x264-20090301/standards.txt
-  /usr/share/doc/x264-20090301/threads.txt
-  /usr/share/doc/x264-20090301/vui.txt
+  /usr/share/doc/x264/AUTHORS
+  /usr/share/doc/x264/COPYING
+  /usr/share/doc/x264/ratecontrol.txt
+  /usr/share/doc/x264/regression_test.txt
+  /usr/share/doc/x264/standards.txt
+  /usr/share/doc/x264/threads.txt
+  /usr/share/doc/x264/vui.txt
 
-(libx264_66)
-  /usr/bin/cygx264-66.dll
+(libx264_67)
+  /usr/bin/cygx264-67.dll
 
 (libx264-devel)
   /usr/include/x264.h
@@ -61,20 +62,8 @@ Files included in the binary packages:
 
 Port Notes:
 
------ version 20090301-1 -----
-Updated Git snapshot.
-
------ version 20080521-1 -----
-Updated Git snapshot.
-
------ version 680-1 -----
-Updated SVN snapshot.
-
------ version 667-1 -----
-Updated SVN snapshot.  Separated GTK+ libs.
-
------ version 20070213-1 -----
-Initial release for Cygwin.
+----- version 20090404-1 -----
+Initial release for Cygwin 1.7.
 
 
 Cygwin port maintained by:
