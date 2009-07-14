@@ -3,14 +3,14 @@ x264
 x264 is a free library for encoding H264/AVC video streams.
 
 Runtime requirements:
-  cygwin-1.7.0-45
+  cygwin-1.7.0-50
   libgcc1-4.3.2-2
-  libX11_6-1.2-10
+  libX11_6-1.2.1-1
 
 Build requirements:
 (besides corresponding -devel packages)
-  binutils-20080624-2
-  cygport-0.9.6-1
+  binutils-2.19.51-1
+  cygport-0.9.7-1
   gcc4-core-4.3.2-2
   make-3.81-2
 
@@ -23,17 +23,17 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack x264-20090404-X-src.tar.bz2
+  unpack x264-20090712-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./x264-20090404-X.cygport all
+  cygport ./x264-20090712-X.cygport all
 
 This will create:
-  /usr/src/x264-20090404-X-src.tar.bz2
-  /usr/src/x264-20090404-X.tar.bz2
-  /usr/src/libx264_67-20090404-X.tar.bz2
-  /usr/src/libx264-devel-20090404-X.tar.bz2
+  /usr/src/x264-20090712-X-src.tar.bz2
+  /usr/src/x264-20090712-X.tar.bz2
+  /usr/src/libx264_68-20090712-X.tar.bz2
+  /usr/src/libx264-devel-20090712-X.tar.bz2
 
 -------------------------------------------
 
@@ -49,8 +49,8 @@ Files included in the binary packages:
   /usr/share/doc/x264/threads.txt
   /usr/share/doc/x264/vui.txt
 
-(libx264_67)
-  /usr/bin/cygx264-67.dll
+(libx264_68)
+  /usr/bin/cygx264-68.dll
 
 (libx264-devel)
   /usr/include/x264.h
@@ -61,6 +61,9 @@ Files included in the binary packages:
 ------------------
 
 Port Notes:
+
+----- version 20090712-1 -----
+Version bump.
 
 ----- version 20090404-1 -----
 Initial release for Cygwin 1.7.

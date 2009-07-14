@@ -11,21 +11,23 @@
  	$(if $(SONAME), ln -sf $(SONAME) $(DESTDIR)$(libdir)/libx264.$(SOSUFFIX))
 --- origsrc/x264-snapshot-20090301-2245/configure	2009-03-01 15:45:20.000000000 -0600
 +++ src/x264-snapshot-20090301-2245/configure	2009-03-02 10:53:04.765625000 -0600
-@@ -208,11 +208,8 @@ case $host_os in
+@@ -208,13 +208,8 @@ case $host_os in
      LDFLAGS="$LDFLAGS -lm"
      ;;
    cygwin*)
 -    SYS="MINGW"
--    CFLAGS="$CFLAGS -mno-cygwin"
--    LDFLAGS="$LDFLAGS -mno-cygwin"
 +    SYS="CYGWIN"
      EXE=".exe"
 -    DEVNULL="NUL"
+-    if cc_check "" -mno-cygwin; then
+-        CFLAGS="$CFLAGS -mno-cygwin"
+-        LDFLAGS="$LDFLAGS -mno-cygwin"
+-    fi
      ;;
    mingw*)
      SYS="MINGW"
-@@ -238,7 +235,7 @@ case $host_cpu in
-     ASFLAGS="$ASFLAGS -O2"
+@@ -242,7 +237,7 @@ case $host_cpu in
+     fi
      if [ "$SYS" = MACOSX ]; then
        ASFLAGS="$ASFLAGS -f macho -DPREFIX"
 -    elif [ "$SYS" = MINGW ]; then
@@ -33,7 +35,7 @@
        ASFLAGS="$ASFLAGS -f win32 -DPREFIX"
      else
        ASFLAGS="$ASFLAGS -f elf"
-@@ -450,6 +447,10 @@ if [ "$shared" = "yes" ]; then
+@@ -463,6 +458,10 @@ if [ "$shared" = "yes" ]; then
          echo "SONAME=libx264-$API.dll" >> config.mak
          echo 'IMPLIBNAME=libx264.dll.a' >> config.mak
          echo 'SOFLAGS=-Wl,--out-implib,$(IMPLIBNAME) -Wl,--enable-auto-image-base' >> config.mak
