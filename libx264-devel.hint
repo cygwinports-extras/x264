@@ -1,5 +1,5 @@
 category: Video
-requires: libx264_68 libX11-devel
+requires: libx264_84 libX11-devel
 external-source: x264
 sdesc: "H264/AVC video stream encoding library (development)"
 ldesc: "x264 is a free library for encoding H264/AVC video streams."
