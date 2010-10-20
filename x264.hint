@@ -1,4 +1,4 @@
 category: Video
-requires: libgcc1 libX11_6
+requires: libswscale0 libX11_6
 sdesc: "H264/AVC video stream encoding library (utilities)"
 ldesc: "x264 is a free library for encoding H264/AVC video streams."

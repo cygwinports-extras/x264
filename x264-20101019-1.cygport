@@ -5,9 +5,9 @@ SRC_DIR="${PN}-snapshot-${PV}-2245"
 
 PATCH_URI="20090712-build.patch"
 
-PKG_NAMES="${PN} lib${PN}_84 lib${PN}-devel"
+PKG_NAMES="${PN} lib${PN}_107 lib${PN}-devel"
 x264_CONTENTS="usr/bin/*.exe usr/share/doc/"
-libx264_84_CONTENTS="usr/bin/cygx264-84.dll"
+libx264_107_CONTENTS="usr/bin/cygx264-107.dll"
 libx264_devel_CONTENTS='usr/include/x264.h usr/lib/libx264.* usr/lib/pkgconfig/x264.pc'
 
 DIFF_EXCLUDES="*.po"
