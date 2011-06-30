@@ -1,0 +1,33 @@
+--- origsrc/x264-snapshot-20110616-2245/Makefile	2011-06-16 15:45:11.000000000 -0500
++++ src/x264-snapshot-20110616-2245/Makefile	2011-06-30 00:54:44.074815300 -0500
+@@ -228,7 +228,7 @@ install-lib-static: lib-static install-l
+ 	$(if $(RANLIB), $(RANLIB) $(DESTDIR)$(libdir)/$(LIBX264))
+ 
+ install-lib-shared: lib-shared install-lib-dev
+-ifeq ($(SYS),WINDOWS)
++ifneq ($(filter CYGWIN WINDOWS, $(SYS)), '')
+ 	$(if $(SONAME), install -m 755 $(SONAME) $(DESTDIR)$(bindir))
+ else
+ 	$(if $(SONAME), ln -f -s $(SONAME) $(DESTDIR)$(libdir)/libx264.$(SOSUFFIX))
+--- origsrc/x264-snapshot-20110616-2245/configure	2011-06-16 15:45:11.000000000 -0500
++++ src/x264-snapshot-20110616-2245/configure	2011-06-30 00:53:34.529894100 -0500
+@@ -992,7 +992,7 @@ fi
+ 
+ if [ "$shared" = "yes" ]; then
+     API=$(grep '#define X264_BUILD' < x264.h | cut -f 3 -d ' ')
+-    if [ "$SYS" = "WINDOWS" -o "$SYS" = "CYGWIN" ]; then
++    if [ "$SYS" = "WINDOWS" ]; then
+         echo "SONAME=libx264-$API.dll" >> config.mak
+         if [ $compiler = ICL ]; then
+             echo 'IMPLIBNAME=libx264.dll.lib' >> config.mak
+@@ -1005,6 +1005,10 @@ if [ "$shared" = "yes" ]; then
+             echo 'IMPLIBNAME=libx264.dll.a' >> config.mak
+             echo 'SOFLAGS=-shared -Wl,--out-implib,$(IMPLIBNAME) -Wl,--enable-auto-image-base' >> config.mak
+         fi
++    elif [ "$SYS" = "CYGWIN" ]; then
++        echo "SONAME=cygx264-$API.dll" >> config.mak
++        echo 'IMPLIBNAME=libx264.dll.a' >> config.mak
++        echo 'SOFLAGS=-shared -Wl,--out-implib,$(IMPLIBNAME)' >> config.mak
+     elif [ "$SYS" = "MACOSX" ]; then
+         echo "SOSUFFIX=dylib" >> config.mak
+         echo "SONAME=libx264.$API.dylib" >> config.mak
