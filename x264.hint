@@ -1,4 +1,4 @@
 category: Video
-requires: libavcodec52 libavformat52 libavutil50 libffms2_2 libswscale0 libX11_6
+requires: libavcodec53 libavformat53 libavutil51 libffms2_2 libswscale2 libX11_6
 sdesc: "H264/AVC video stream encoding library (utilities)"
 ldesc: "x264 is a free library for encoding H264/AVC video streams."

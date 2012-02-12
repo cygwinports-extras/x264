@@ -3,11 +3,11 @@ HOMEPAGE="http://www.videolan.org/developers/x264.html"
 SRC_URI="http://download.videolan.org/pub/videolan/${PN}/snapshots/${PN}-snapshot-${PV}-2245.tar.bz2"
 SRC_DIR="${PN}-snapshot-${PV}-2245"
 
-PATCH_URI="20110616-cygwin-build.patch"
+PATCH_URI="20120204-cygwin-build.patch"
 
-PKG_NAMES="${PN} lib${PN}_115 lib${PN}-devel"
+PKG_NAMES="${PN} lib${PN}_120 lib${PN}-devel"
 x264_CONTENTS="usr/bin/*.exe usr/share/doc/"
-libx264_115_CONTENTS="usr/bin/cygx264-115.dll"
+libx264_120_CONTENTS="usr/bin/cygx264-120.dll"
 libx264_devel_CONTENTS="usr/include/ usr/lib/"
 
 DIFF_EXCLUDES="*.po"
