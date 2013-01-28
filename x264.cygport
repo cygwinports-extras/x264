@@ -1,0 +1,30 @@
+NAME="x264"
+VERSION=20130109
+RELEASE=1
+CATEGORY="Video"
+SUMMARY="H264/AVC video stream encoding library"
+DESCRIPTION="x264 is a free library for encoding H264/AVC video streams."
+HOMEPAGE="http://www.videolan.org/developers/x264.html"
+SRC_URI="http://download.videolan.org/pub/videolan/${PN}/snapshots/${PN}-snapshot-${PV}-2245-stable.tar.bz2"
+SRC_DIR="${PN}-snapshot-${PV}-2245-stable"
+
+PATCH_URI="20120204-cygwin-build.patch"
+
+PKG_NAMES="${PN} lib${PN}_129 lib${PN}-devel"
+x264_SUMMARY="${SUMMARY% *} utilities"
+x264_CONTENTS="usr/bin/*.exe usr/share/doc/"
+libx264_129_CONTENTS="usr/bin/cygx264-129.dll"
+libx264_devel_CONTENTS="usr/include/ usr/lib/"
+
+DIFF_EXCLUDES="*.po"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	./configure --prefix=/usr \
+		--bindir=/usr/bin --includedir=/usr/include --libdir=/usr/lib \
+		--enable-visualize --enable-shared
+	cygmake
+}
+
+DOCS="doc/*.txt"
