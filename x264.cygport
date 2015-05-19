@@ -1,19 +1,22 @@
+GIT_URI="git://git.videolan.org/x264.git"
+inherit git
+
 NAME="x264"
-VERSION=20130917
+VERSION=20150223
 RELEASE=1
 CATEGORY="Video"
 SUMMARY="H264/AVC video stream encoding library"
 DESCRIPTION="x264 is a free library for encoding H264/AVC video streams."
 HOMEPAGE="http://www.videolan.org/developers/x264.html"
-SRC_URI="http://download.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-${VERSION}-2245-stable.tar.bz2"
-SRC_DIR="x264-snapshot-${VERSION}-2245-stable"
+#SRC_URI="http://download.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-${VERSION}-2245-stable.tar.bz2"
+#SRC_DIR="x264-snapshot-${VERSION}-2245-stable"
 
 PATCH_URI="20120204-cygwin-build.patch"
 
-PKG_NAMES="x264 libx264_136 libx264-devel"
+PKG_NAMES="x264 libx264_146 libx264-devel"
 x264_SUMMARY="${SUMMARY% *} utilities"
 x264_CONTENTS="usr/bin/*.exe usr/share/doc/"
-libx264_136_CONTENTS="usr/bin/cygx264-136.dll"
+libx264_146_CONTENTS="usr/bin/cygx264-146.dll"
 libx264_devel_CONTENTS="usr/include/ usr/lib/"
 
 DIFF_EXCLUDES="*.po"
