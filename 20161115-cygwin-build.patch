@@ -1,17 +1,17 @@
---- origsrc/x264-snapshot-20120204-2245/configure	2012-02-04 15:45:03.000000000 -0600
-+++ src/x264-snapshot-20120204-2245/configure	2012-02-11 21:29:03.012822100 -0600
-@@ -1075,7 +1075,7 @@ fi
+--- origsrc/x264-snapshot-20161115-2245-stable/configure	2016-11-16 15:33:10.408035900 -0600
++++ src/x264-snapshot-20161115-2245-stable/configure	2016-11-16 15:32:50.292365100 -0600
+@@ -1406,7 +1406,7 @@ fi
  
  if [ "$shared" = "yes" ]; then
      API=$(grep '#define X264_BUILD' < ${SRCPATH}/x264.h | cut -f 3 -d ' ')
 -    if [ "$SYS" = "WINDOWS" -o "$SYS" = "CYGWIN" ]; then
 +    if [ "$SYS" = "WINDOWS" ]; then
          echo "SONAME=libx264-$API.dll" >> config.mak
-         if [ $compiler = ICL ]; then
+         if [ $compiler_style = MS ]; then
              echo 'IMPLIBNAME=libx264.dll.lib' >> config.mak
-@@ -1088,6 +1088,10 @@ if [ "$shared" = "yes" ]; then
+@@ -1422,6 +1422,10 @@ if [ "$shared" = "yes" ]; then
              echo 'IMPLIBNAME=libx264.dll.a' >> config.mak
-             echo "SOFLAGS=-shared -Wl,--out-implib,\$(IMPLIBNAME) -Wl,--enable-auto-image-base $SOFLAGS" >> config.mak
+             echo "SOFLAGS=-shared -Wl,--out-implib,\$(IMPLIBNAME) $SOFLAGS" >> config.mak
          fi
 +    elif [ "$SYS" = "CYGWIN" ]; then
 +        echo "SONAME=cygx264-$API.dll" >> config.mak
