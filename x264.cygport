@@ -1,5 +1,5 @@
 NAME="x264"
-VERSION=20171218
+VERSION=20180319
 RELEASE=1
 CATEGORY="Libs"
 SUMMARY="H264/AVC video stream encoding library"
@@ -9,11 +9,11 @@ SRC_URI="http://download.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-
 SRC_DIR="x264-snapshot-${VERSION}-2245-stable"
 PATCH_URI="20170330-cygwin-build.patch"
 
-PKG_NAMES="x264 libx264_148 libx264-devel"
+PKG_NAMES="x264 libx264_152 libx264-devel"
 x264_CATEGORY="Video"
 x264_SUMMARY="${SUMMARY% *} utilities"
 x264_CONTENTS="usr/bin/*.exe usr/share/doc/"
-libx264_148_CONTENTS="usr/bin/cygx264-148.dll"
+libx264_152_CONTENTS="usr/bin/cygx264-152.dll"
 libx264_devel_CONTENTS="usr/include/ usr/lib/"
 
 DIFF_EXCLUDES="*.po"
